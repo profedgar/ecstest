@@ -15,7 +15,7 @@ resource "aws_ecs_service" "service" {
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   enable_ecs_managed_tags            = "false"
-  health_check_grace_period_seconds  = var.health_check_grace_period_seconds
+  # health_check_grace_period_seconds  = var.health_check_grace_period_seconds
   launch_type                        = "FARGATE"
   platform_version                   = var.platform_version
   scheduling_strategy                = "REPLICA"
@@ -28,23 +28,23 @@ resource "aws_ecs_service" "service" {
 
 
 
-  load_balancer {
-    container_name   = "${var.project}-${var.environment}"
-    container_port   = var.port
-    target_group_arn = aws_lb_target_group.app.arn
-  }
+  # load_balancer {
+  #   container_name   = "${var.project}-${var.environment}"
+  #   container_port   = var.port
+  #   target_group_arn = aws_lb_target_group.app.arn
+  # }
 
   network_configuration {
     assign_public_ip = "true"
-    //security_groups  = ["sg-0d784290d6fd5c6a9"]
-   security_groups  = [aws_security_group.allow-external.id]
-    subnets          = data.aws_subnet_ids.public.ids
+  // security_groups  = ["sg-02fddf6f9200f31f3"]
+  security_groups  = [aws_security_group.allow-external.id]
+    subnets          = ["subnet-090911fe096eb3f79","subnet-03d4a7e2d3d999d16","subnet-020823c4c93ce833b"]
   }
 
 
   depends_on = [
     aws_ecs_task_definition.app,
-    aws_lb.lb
+    //aws_lb.lb
   ]
 }
 
@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "app" {
   container_definitions = jsonencode([
     {
       name  = "${var.project}-${var.environment}"
-      image = "public.ecr.aws/w0f5g4k6/javaweb"
+      image = "public.ecr.aws/o2e1s3q7/mcr.microsoft.com/dotnet/core/sdk:3.1-alpine"
       portMappings = [
         {
           containerPort = var.port

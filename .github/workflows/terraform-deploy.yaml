@@ -23,7 +23,7 @@ jobs:
     env:
          AWS_ACCESS_KEY_ID: AKIAWMCS75DBQ6TM3YUE
          AWS_SECRET_ACCESS_KEY: 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
-         AWS_DEFAULT_REGION: us-east-2
+         AWS_DEFAULT_REGION: sa-east-1
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1

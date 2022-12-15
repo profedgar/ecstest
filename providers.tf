@@ -4,12 +4,15 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = ">= 3.63.0"
+      
     }
   }
 }
 
 provider "aws" {
-  region = var.region
+    access_key = var.access_key
+    secret_key = var.secret_key
+    region     = var.region
   default_tags {
     tags = {
       Environment = var.environment
