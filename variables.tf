@@ -6,13 +6,13 @@ variable "team" { default = "devops4solutions" }
 variable "access_key" {
     type=string
     description =""
-    default = "AKIAWMCS75DBXKULBM4F"
+    default = "AKIAWMCS75DB4ZRFWWQN"
 }
 
 variable "secret_key" {
     type=string
     description =""
-    default = "bcw9ujD5Mc6tnX/Wfuq/y8OKB64/F20IVCyfMHOc"
+    default = "pxs/cv2qwLmC3u0RFvdYwh/HKVTifHAd20Z/l8Xy"
 }
 
 variable "region" {
