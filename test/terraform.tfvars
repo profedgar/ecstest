@@ -1,5 +1,5 @@
 environment = "test"
-project     = "core"
+project     = "apinet"
 platform = "Devops"
 vpc_id = "vpc-072ecaa60abe662d4"
 team = "devops4solutions"

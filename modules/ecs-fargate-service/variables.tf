@@ -59,10 +59,6 @@ variable "vpc_id" {
   description = "VPC ID to use for the resources"
 }
 
-variable "ecs_service_role" {
-  default = ""
-}
-
 variable "task_iam_policy" {
   default     = ""
   description = "Policy document for ecs task"

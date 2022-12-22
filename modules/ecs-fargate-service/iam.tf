@@ -1,20 +1,23 @@
-data "aws_iam_policy_document" "ecs_tasks_execution_role" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ecs-tasks.amazonaws.com"]
-    }
-  }
-}
-
 resource "aws_iam_role" "task" {
-  name               = "${var.project}-${var.environment}-task-role"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_tasks_execution_role.json}"
+  name                     = "${var.project}-${var.environment}-task-role"
+    assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+      },
+    ]
+  })
+  
 }
 
 resource "aws_iam_role_policy_attachment" "task" {
-  role       = "${var.project}-${var.environment}-task-role"
+  role       = aws_iam_role.task.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
+
